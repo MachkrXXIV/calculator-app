@@ -2,78 +2,82 @@
   font-size: 16;
   background-color: var(--bgc-primary);
   --digits-color: hsl(204, 22%, 53%);
-  --black: hsl(0,0,0);
+  --black: hsl(0, 0, 0);
   --bgc-primary: hsl(184, 8%, 59%);
   --calculator-color: hsl(0, 4%, 33%);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .calculator {
-  height: auto;
-  min-width: 60vw;
-  margin: auto;
-  border-radius: .5rem;
+  height: 45rem;
+  width: 30rem;
+  border-radius: 0.5rem;
   background-color: var(--calculator-color);
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  box-shadow: 0, 0, 10px rgba(0, 0, 0, 2.4);
 }
 
 .display {
   display: flex;
   flex-flow: column;
-  align-items: flex-end;
-  gap: 20px;
-  border-top-left-radius: .5rem;
-  border-top-right-radius: .5rem;
-  background-color: white;
+  justify-content: space-evenly;
+  height: 30%;
   width: 100%;
+  gap: 20px;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background-color: white;
   font-size: 1.5rem;
+  text-align: right;
+  padding-right: 0.5rem;
 }
 
 .btns-grid {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  grid-template-areas: 
-  "op op op op"
-  "dig dig dig op"
-  "dig dig dig op"
-  "dig dig dig op"
-  "dot dig equal equal";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "op op op op"
+    "dig dig dig op"
+    "dig dig dig op"
+    "dig dig dig op"
+    "dot dig equal equal";
+  height: 70%;
   width: 100%;
 }
 
 button {
+  max-height: 20rem;
+  max-width: auto;
   border-radius: 0;
   font-size: 2rem;
   cursor: pointer;
   border: none;
-  height: 15vh;
-  width: auto;
   padding: 0;
 }
 
 .equal {
   grid-column: span 2;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .dot {
-  border-bottom-left-radius: .5rem;
+  border-bottom-left-radius: 0.5rem;
 }
