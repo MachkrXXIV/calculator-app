@@ -2,16 +2,19 @@
   font-size: 16;
   font-family: IBM Plex Sans, sans-serif;
   background-color: var(--bgc-primary);
-  --buttons-color: hsl(231, 4%, 31%);
-  --buttons-color-hover: hsl(231, 4%, 51%);
-  --button-font-color: hsl(0, 0%, 100%);
-  --button-font-color-hover: hsl(0, 0%, 20%);
-  --black: hsl(0, 0, 0);
   --bgc-primary: hsl(263, 60%, 68%);
+  --button-font-color-hover: hsl(0, 0%, 20%);
+  --button-font-color: hsl(0, 0%, 100%);
+  --buttons-color-hover: hsl(231, 4%, 51%);
+  --buttons-color: hsl(231, 4%, 31%);
   --calculator-color: hsl(212, 14%, 19%);
-  --display-color: hsl(210, 10%, 23%);
-  --previous-display-color: hsl(176, 46%, 55%);
+  --clear-btn-color: hsl(346, 84%, 61%);
   --current-display-color: hsl(176, 76%, 65%);
+  --display-color: hsl(210, 10%, 23%);
+  --equal-btn-color: hsl(164, 95%, 43%);
+  --operation-btn-color: hsl(195, 83%, 38%);
+  --negative-toggle-color: hsl(42, 100%, 70%);
+  --previous-display-color: hsl(176, 46%, 55%);
 }
 
 *,
@@ -94,18 +97,47 @@ button {
   border: none;
   padding: 0;
   transition: all 200ms;
+  transition: transform 300ms, box-shadow 400ms;
 }
 
 button:hover {
   background-color: var(--buttons-color-hover);
   color: var(--button-font-color-hover);
   transform: scale(1.08);
-  box-shadow: 0 0 5px 4px #7400b8;
+  box-shadow: 0 0 5px 4px hsla(278, 100%, 36%, 0.4);
+}
+
+.clear:hover {
+  background-color: var(--clear-btn-color);
+  color: var(--button-font-color-hover);
+  transform: scale(1.08);
+  box-shadow: 0 0 5px 4px hsla(0, 86%, 45%, 0.4);
 }
 
 .equal {
   grid-column: span 2;
   border-bottom-right-radius: 0.5rem;
+}
+
+.equal.operator:hover {
+  background-color: var(--equal-btn-color);
+  color: var(--button-font-color-hover);
+  transform: scale(1.08);
+  box-shadow: 0 0 5px 4px hsla(101, 86%, 45%, 0.4);
+}
+
+.negative-toggle:hover {
+  background-color: var(--negative-toggle-color);
+  color: var(--button-font-color-hover);
+  transform: scale(1.08);
+  box-shadow: 0 0 5px 4px hsla(59, 86%, 45%, 0.4);
+}
+
+.operator:hover {
+  background-color: var(--operation-btn-color);
+  color: var(--button-font-color-hover);
+  transform: scale(1.08);
+  box-shadow: 0 0 5px 4px hsla(207, 86%, 45%, 0.4);
 }
 
 .dot {
