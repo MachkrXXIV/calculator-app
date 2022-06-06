@@ -1,10 +1,14 @@
 :root {
   font-size: 16;
   background-color: var(--bgc-primary);
-  --digits-color: hsl(204, 22%, 53%);
+  --buttons-color: hsl(231, 4%, 31%);
+  --button-font-color: hsl(0, 0%, 100%);
   --black: hsl(0, 0, 0);
   --bgc-primary: hsl(184, 8%, 59%);
-  --calculator-color: hsl(0, 4%, 33%);
+  --calculator-color: hsl(212, 14%, 19%);
+  --display-color: hsl(210, 10%, 23%);
+  --previous-display-color: hsl(176, 46%, 55%);
+  --current-display-color: hsl(176, 76%, 65%);
 }
 
 *,
@@ -26,11 +30,13 @@ body {
 .calculator {
   height: 45rem;
   width: 30rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
+  padding: 1rem;
   background-color: var(--calculator-color);
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0, 0, 10px rgba(0, 0, 0, 2.4);
 }
@@ -38,16 +44,25 @@ body {
 .display {
   display: flex;
   flex-flow: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   height: 30%;
-  width: 100%;
+  width: 90%;
   gap: 20px;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  background-color: white;
-  font-size: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  background-color: var(--display-color);
+  font-size: 2rem;
   text-align: right;
   padding-right: 0.5rem;
+}
+
+#previous-display {
+  color: var(--previous-display-color);
+}
+
+#current-input {
+  padding-top: 4rem;
+  color: var(--current-display-color);
 }
 
 .btns-grid {
@@ -59,7 +74,8 @@ body {
     "dig dig dig op"
     "dig dig dig op"
     "dot dig equal equal";
-  height: 70%;
+  gap: 0.2rem;
+  height: 65%;
   width: 100%;
 }
 
@@ -67,7 +83,9 @@ button {
   max-height: 20rem;
   max-width: auto;
   border-radius: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  color: var(--button-font-color);
+  background-color: var(--buttons-color);
   cursor: pointer;
   border: none;
   padding: 0;
