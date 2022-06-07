@@ -1,3 +1,7 @@
+/*******************
+ element selectors 
+ *******************/
+
 const btns = document.querySelectorAll("button");
 const digits = document.querySelectorAll(".digit");
 const operatorBtns = document.querySelectorAll(".operator");
@@ -8,6 +12,10 @@ const equalsBtn = document.querySelector(".operator.equal");
 const currentOutput = document.querySelector("#current-output");
 const inputDisplay = document.querySelector("#input-display");
 
+/*******************
+ recurring variables 
+ *******************/
+
 let firstNum = "";
 let currentOperator = "";
 let secondNum = "";
@@ -17,10 +25,18 @@ let hasTotal = false;
 let isOverflow = false;
 let calculation = inputDisplay.textContent;
 
+/*******************
+ event listeners 
+ *******************/
+
 window.addEventListener("keydown", keyControl);
 deleteBtn.addEventListener("click", () => erase());
 allClearBtn.addEventListener("click", () => clearAll());
 equalsBtn.addEventListener("click", () => evaluate());
+
+/*******************
+ apply listeners
+ *******************/
 
 for (let digit of digits) {
   digit.addEventListener("click", (e) => appendNum(digit.textContent));
@@ -33,6 +49,10 @@ for (let operator of operatorBtns) {
     setOperation(operator.textContent);
   });
 }
+
+/*******************
+ functions
+ *******************/
 
 function appendNum(digit) {
   if (inputDisplay.textContent === "") {
@@ -68,7 +88,7 @@ function convertKeyboardOperator(operator) {
 function keyControl(action) {
   if (action.key >= 0 && action.key <= 9) appendNum(action.key);
   if (action.key === "Backspace") erase();
-  if (action.key === "Backslash") clearAll();
+  if (action.key === "\\") clearAll();
   if (action.key === "Enter" || action.key === "=") evaluate();
   if (
     action.key === "+" ||
@@ -85,8 +105,9 @@ function erase() {
 }
 
 function evaluate() {
-  if (!isNaN(inputDisplay.textContent))
+  if (!isNaN(inputDisplay.textContent)) {
     return (currentOutput.textContent = inputDisplay.textContent);
+  }
   if (currentOperator === div && secondNum === "0") {
     resetScreen();
     currentOutput.textContent = "ERROR DIVIDE BY 0";
