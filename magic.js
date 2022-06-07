@@ -8,6 +8,21 @@ const equalsBtn = document.querySelector(".operator.equal");
 const currentOutput = document.querySelector("#current-output");
 const inputDisplay = document.querySelector("#input-display");
 
+let firstNum = "";
+let operation = "";
+let secondNum = "";
+
+for (let digit of digits) {
+  digit.addEventListener("click", (e) => appendNum(digit.textContent));
+}
+
+function appendNum(digit) {
+  inputDisplay.textContent += digit;
+}
+
+function selectOperator()
+
+
 function operate(operator, num1, num2) {
   num1 = parseInt(num1);
   num2 = parseInt(num2);
