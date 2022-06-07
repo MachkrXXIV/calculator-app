@@ -16,12 +16,22 @@ for (let digit of digits) {
   digit.addEventListener("click", (e) => appendNum(digit.textContent));
 }
 
+for (let operator of operatorBtns) {
+  operator.addEventListener("click", (e) => {
+    let isNum = /^\d+$/.test(inputDisplay.textContent.slice(-1));
+    if (!isNum) return;
+    selectOperator(operator.textContent);
+  });
+}
+
 function appendNum(digit) {
   inputDisplay.textContent += digit;
 }
 
-function selectOperator()
-
+function selectOperator(operator) {
+  if (operator === "=") return;
+  inputDisplay.textContent += operator;
+}
 
 function operate(operator, num1, num2) {
   num1 = parseInt(num1);
