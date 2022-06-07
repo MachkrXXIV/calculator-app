@@ -13,10 +13,13 @@ let currentOperator = "";
 let secondNum = "";
 let multi = "\u00D7";
 let div = "\u00F7";
+let hasTotal = false;
+let calculation = inputDisplay.textContent;
 
-deleteBtn.addEventListener("click", (e) => erase());
-allClearBtn.addEventListener("click", (e) => clearAll());
-equalsBtn.addEventListener("click", (e) => evaluate());
+window.addEventListener("keydown", keyControl);
+deleteBtn.addEventListener("click", () => erase());
+allClearBtn.addEventListener("click", () => clearAll());
+equalsBtn.addEventListener("click", () => evaluate());
 
 for (let digit of digits) {
   digit.addEventListener("click", (e) => appendNum(digit.textContent));
@@ -26,7 +29,7 @@ for (let operator of operatorBtns) {
   operator.addEventListener("click", (e) => {
     let isNum = /^\d+$/.test(inputDisplay.textContent.slice(-1));
     if (!isNum) return;
-    setOperator(operator.textContent);
+    setOperation(operator.textContent);
   });
 }
 
@@ -35,9 +38,22 @@ function appendNum(digit) {
     firstNum = inputDisplay.textContent;
   }
   inputDisplay.textContent += digit;
+  let operationMarker = inputDisplay.textContent.indexOf(currentOperator);
+  if (inputDisplay.textContent.slice(operationMarker + 1).length > 0) {
+    let twoNums = inputDisplay.textContent.split(currentOperator);
+    firstNum = twoNums[0];
+    secondNum = twoNums[1];
+    console.log(firstNum);
+    console.log(secondNum);
+  }
 }
 
 function clearAll() {
+  firstNum = "";
+  secondNum = "";
+  currentOperator = "";
+  hasTotal = false;
+  currentOutput.textContent = "";
   inputDisplay.textContent = "";
 }
 
@@ -48,6 +64,21 @@ function convertKeyboardOperator(operator) {
   if (operator === "/") return div;
 }
 
+function keyControl(action) {
+  if (action.key >= 0 && action.key <= 9) appendNum(action.key);
+  if (action.key === "Backspace") erase();
+  if (action.key === "Backslash") clearAll();
+  if (action.key === "Enter") evaluate();
+  if (
+    action.key === "+" ||
+    action.key === "-" ||
+    action.key === "*" ||
+    action.key === "/"
+  ) {
+    setOperation(convertKeyboardOperator(action.key));
+  }
+}
+
 function erase() {
   inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
 }
@@ -55,21 +86,21 @@ function erase() {
 function evaluate() {
   let solution = operate(currentOperator, firstNum, secondNum);
   currentOutput.textContent = solution;
-}
-
-function resetScreen() {
-  return;
+  hasTotal = true;
 }
 
 function setOperation(operator) {
   if (operator === "=") return;
-
   currentOperator = operator;
-
+  if (hasTotal) {
+    resetScreen();
+    inputDisplay.textContent = currentOutput.textContent;
+  }
   inputDisplay.textContent += operator;
-  let twoNums = inputDisplay.textContent.split(operator);
-  firstNum = twoNums[0];
-  secondNum = twoNums[1];
+}
+
+function resetScreen() {
+  inputDisplay.textContent = "";
 }
 
 function operate(operator, num1, num2) {
