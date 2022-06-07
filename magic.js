@@ -14,6 +14,7 @@ let secondNum = "";
 let multi = "\u00D7";
 let div = "\u00F7";
 let hasTotal = false;
+let isOverflow = false;
 let calculation = inputDisplay.textContent;
 
 window.addEventListener("keydown", keyControl);
@@ -68,7 +69,7 @@ function keyControl(action) {
   if (action.key >= 0 && action.key <= 9) appendNum(action.key);
   if (action.key === "Backspace") erase();
   if (action.key === "Backslash") clearAll();
-  if (action.key === "Enter") evaluate();
+  if (action.key === "Enter" || action.key === "=") evaluate();
   if (
     action.key === "+" ||
     action.key === "-" ||
@@ -84,6 +85,13 @@ function erase() {
 }
 
 function evaluate() {
+  if (!isNaN(inputDisplay.textContent))
+    return (currentOutput.textContent = inputDisplay.textContent);
+  if (currentOperator === div && secondNum === "0") {
+    resetScreen();
+    currentOutput.textContent = "ERROR DIVIDE BY 0";
+    return;
+  }
   let solution = operate(currentOperator, firstNum, secondNum);
   currentOutput.textContent = solution;
   hasTotal = true;
