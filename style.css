@@ -63,12 +63,13 @@ body {
   padding-right: 0.5rem;
 }
 
-#previous-display {
+#input-display {
   color: var(--previous-display-color);
 }
 
-#current-input {
-  padding-top: 4rem;
+#current-output {
+  padding-top: 2rem;
+  font-size: 4rem;
   color: var(--current-display-color);
 }
 
