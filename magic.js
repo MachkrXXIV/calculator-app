@@ -12,6 +12,9 @@ let firstNum = "";
 let operation = "";
 let secondNum = "";
 
+deleteBtn.addEventListener("click", (e) => erase());
+allClearBtn.addEventListener("click", (e) => clearAll());
+
 for (let digit of digits) {
   digit.addEventListener("click", (e) => appendNum(digit.textContent));
 }
@@ -26,6 +29,14 @@ for (let operator of operatorBtns) {
 
 function appendNum(digit) {
   inputDisplay.textContent += digit;
+}
+
+function clearAll() {
+  inputDisplay.textContent = "";
+}
+
+function erase() {
+  inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
 }
 
 function selectOperator(operator) {
