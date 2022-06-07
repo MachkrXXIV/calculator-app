@@ -9,11 +9,14 @@ const currentOutput = document.querySelector("#current-output");
 const inputDisplay = document.querySelector("#input-display");
 
 let firstNum = "";
-let operation = "";
+let currentOperator = "";
 let secondNum = "";
+let multi = "\u00D7";
+let div = "\u00F7";
 
 deleteBtn.addEventListener("click", (e) => erase());
 allClearBtn.addEventListener("click", (e) => clearAll());
+equalsBtn.addEventListener("click", (e) => evaluate());
 
 for (let digit of digits) {
   digit.addEventListener("click", (e) => appendNum(digit.textContent));
@@ -23,11 +26,14 @@ for (let operator of operatorBtns) {
   operator.addEventListener("click", (e) => {
     let isNum = /^\d+$/.test(inputDisplay.textContent.slice(-1));
     if (!isNum) return;
-    selectOperator(operator.textContent);
+    setOperator(operator.textContent);
   });
 }
 
 function appendNum(digit) {
+  if (inputDisplay.textContent === "") {
+    firstNum = inputDisplay.textContent;
+  }
   inputDisplay.textContent += digit;
 }
 
@@ -35,13 +41,35 @@ function clearAll() {
   inputDisplay.textContent = "";
 }
 
+function convertKeyboardOperator(operator) {
+  if (operator === "+") return "+";
+  if (operator === "-") return "-";
+  if (operator === "*") return multi;
+  if (operator === "/") return div;
+}
+
 function erase() {
   inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
 }
 
-function selectOperator(operator) {
+function evaluate() {
+  let solution = operate(currentOperator, firstNum, secondNum);
+  currentOutput.textContent = solution;
+}
+
+function resetScreen() {
+  return;
+}
+
+function setOperation(operator) {
   if (operator === "=") return;
+
+  currentOperator = operator;
+
   inputDisplay.textContent += operator;
+  let twoNums = inputDisplay.textContent.split(operator);
+  firstNum = twoNums[0];
+  secondNum = twoNums[1];
 }
 
 function operate(operator, num1, num2) {
@@ -53,9 +81,9 @@ function operate(operator, num1, num2) {
       return add(num1, num2);
     case "-":
       return subtract(num1, num2);
-    case "x":
+    case multi:
       return multiply(num1, num2);
-    case "/":
+    case div:
       if (num2 === 0) return null;
       return divide(num1, num2);
     default:
